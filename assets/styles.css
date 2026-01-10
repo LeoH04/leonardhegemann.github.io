@@ -415,15 +415,21 @@ h3 {
     font-size: 0.92rem;
   }
 }
-/* Fix mobile "background zoom" on scroll (caused by position: fixed + cover) */
+
+/* Mobile: prevent "background zoom" when the browser bar collapses */
 @media (max-width: 900px) {
   body.has-bg::before,
   body.has-bg::after {
-    position: absolute;   /* instead of fixed */
-  }
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
 
-  body.has-bg {
-    position: relative;   /* anchor the absolute overlays */
-    min-height: 100dvh;   /* stable viewport height on mobile */
+    /* Key part: lock to stable viewport height */
+    height: 100svh;
+
+    /* Don't use inset: 0 here on mobile */
+    bottom: auto;
   }
 }
+
